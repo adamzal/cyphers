@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cyphers</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+            window.onload = function() {
+
+              var menuItem = document.getElementById("logo");
+              var choice = 0;
+
+              // Funkcja losująca czas
+              function getRandomTime() {
+                return Math.floor(Math.random() * 3000) + 1000; // Losowy czas od 1 do 6 sekund (1000ms = 1s)
+              }
+              
+              // Funkcja zmieniająca tekst
+              function changeText() {
+                var currentText = menuItem.innerHTML;
+                var alternateTextBin = Math.floor(Math.random() * 256).toString(2).padStart(8, '0');
+                var alternateTextHex_1 = Math.floor(Math.random() * 256).toString(16).toUpperCase();
+                var alternateTextHex_2 = Math.floor(Math.random() * 256).toString(16).toUpperCase();
+                var alternateTextHex_3 = Math.floor(Math.random() * 256).toString(16).toUpperCase();
+                var alternateTextHex_4 = Math.floor(Math.random() * 256).toString(16).toUpperCase();
+                                
+                if (choice === 0){
+                    if (currentText === "Cyphers") {
+                        menuItem.innerHTML = alternateTextBin;
+                        choice = 1 - choice;
+                        setTimeout(changeText, 1000); // Wywołaj funkcję changeText()
+                    } else {
+                        menuItem.innerHTML = "Cyphers";
+                        setTimeout(changeText, getRandomTime()); // Wywołaj funkcję changeText() po losowym czasie
+                    }
+                } else {
+                    if (currentText === "Cyphers") {
+                        menuItem.innerHTML = alternateTextHex_1 + ' ' + alternateTextHex_2 + ' ' + alternateTextHex_3 + ' ' + alternateTextHex_4;
+                        choice = 1 - choice;
+                        setTimeout(changeText, 1000); // Wywołaj funkcję changeText()
+                    } else {
+                        menuItem.innerHTML = "Cyphers";
+                        setTimeout(changeText, getRandomTime()); // Wywołaj funkcję changeText() po losowym czasie
+                    }
+                }
+                
+              }
+              
+              // Uruchom funkcję zmieniającą tekst
+              changeText();
+            };
+            </script>
+
+
+    </head>
+    <body class="'page">        
+        <nav>
+            <div class="leftcolumn">
+                <div id="logo">Cyphers</div>
+                <ul class="navbar">                        
+                    <a href="{% url 'about' %}"><li >About Cyphers</li></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}"><li>Profile</li></a>
+                        <a href="{% url 'challenges' %}"><li>Challenges</li></a>
+                        <a href="{% url 'logout' %}"><li>Logout</li></a>
+                    </ul>
+                    {% else %}
+                        <a href="{% url 'registration' %}"><li>Register</li></a>
+                        <a href="{% url 'login' %}"><li>Login</li></a>
+                    </ul>
+                    {% endif %}
+            </div>
+        </nav>
+        <main>
+            <div class="rightcolumn">
+                {% block body_block %}
+
+                {% endblock %}
+            </div>
+        </main>        
+        <footer>
+            &copy 2023 Adam Zalewski
+        </footer>
+    </body>
+</html>

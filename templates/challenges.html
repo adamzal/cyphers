@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div>
+    <p>Challenges</p>
+    {% if challenges.0.is_blocked == True %}
+        <p>Your unblock code for the first challeng is <b>{{challenges.0.unblock_code}}</b> Enjoy!</p>
+    {% endif %}
+
+    {% if challenges.0.is_active == True %}
+        <p>Well done! Great work!</p>
+    {% endif %}
+    <div class="grid-container">
+        {% for user_challeng in challenges %}
+        {% if user_challeng.is_done == True %}
+        <a href="{% url 'play_challeng' user_challeng.pk %}">
+            <div class="challeng-container-done">              
+                <div>{{ user_challeng.challeng.name }}</div>            
+                <div>{{ user_challeng.challeng.get_difficult_level_display }}</div>
+                <div>{{ user_challeng.answer }}</div>                                                   
+            </div> 
+        </a>
+        {% endif %}
+
+        {% if user_challeng.is_active == True %}
+        <a href="{% url 'play_challeng' user_challeng.pk %}">
+            <div class="challeng-container-active">             
+                <div>{{ user_challeng.challeng.name }}</div>            
+                <div>{{ user_challeng.challeng.get_difficult_level_display }}</div>
+                <div>Play</div>                 
+            </div> 
+        </a>
+        {% endif %}
+
+        {% if user_challeng.is_blocked == True %}
+        <div class="challeng-container-blocked">                                 
+            <form class="blocked-challeng-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{user_challeng.pk}}" name="pk">
+                <input type="password" maxlength="10" name="unblock_code"><br>
+                <button type="submit">Unblock</button>
+            </form>
+        </div> 
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+- model: challenges.challeng
+  pk: 1
+  fields:
+    name: "ASCII code 1"
+    text: "bla bla bla"
+    difficult_level: "E"
+
+- model: challenges.challeng
+  pk: 2
+  fields:
+    name: "ASCII code 2"
+    text: "bla bla bla 2"
+    difficult_level: "M"
+
+- model: challenges.challeng
+  pk: 3
+  fields:
+    name: "ASCII code 3"
+    text: "bla bla bla 3"
+    difficult_level: "H"
+
+- model: challenges.challeng
+  pk: 4
+  fields:
+    name: "ASCII code 3"
+    text: "bla bla bla 3"
+    difficult_level: "H"
+
+- model: challenges.challeng
+  pk: 5
+  fields:
+    name: "ASCII code 3"
+    text: "bla bla bla 3"
+    difficult_level: "H"

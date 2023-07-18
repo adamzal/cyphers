@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div>
+    <p>Play challeng</p>
+    <p>{{user_challeng.challeng.name}}</p>
+    <p>{{user_challeng.challeng.get_difficult_level_display}}</p>
+    <p>{{user_challeng.challeng.text}}</p>    
+    {% if user_challeng.is_active == True %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" maxlength="10" name="answer">
+        <button type="submit">Check</button>
+    </form>
+    {% else %}
+    <p>Answer: {{user_challeng.answer}}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

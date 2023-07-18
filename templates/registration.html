@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div>
+    <p>Registration</p>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="username">Username: <input type="text" name="username"></label>
+        <label for="password_1">Password: <input type="text" name="password_1"></label>
+        <label for="password_2">Password: <input type="text" name="password_2"></label>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+{% endblock %}
